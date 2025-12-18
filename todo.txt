@@ -1,0 +1,4 @@
+- Entender os custos da request e melhorar. Está caro. ~R$0,70 por video
+
+- melhorar usabilidade. Feedbacks pro usuario, visualização de Transcrição, thumb do video, progresso
+UX no geral
