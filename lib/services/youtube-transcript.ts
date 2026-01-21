@@ -12,7 +12,8 @@ export interface TranscriptResult {
   durationSeconds: number;
 }
 
-const MAX_DURATION_SECONDS = 40 * 60;
+// Maximum video duration: 2 hours (120 minutes)
+const MAX_DURATION_SECONDS = 120 * 60;
 
 let ytDlpBinaryPath: string | undefined;
 let binaryInitialized = false;
@@ -98,7 +99,7 @@ export async function fetchTranscript(
   const videoInfo = await getVideoInfo(url);
   if (videoInfo.duration > MAX_DURATION_SECONDS) {
     throw new Error(
-      `Video duration (${Math.round(videoInfo.duration / 60)} minutes) exceeds the 40-minute limit.`,
+      `Video duration (${Math.round(videoInfo.duration / 60)} minutes) exceeds the 2-hour limit.`,
     );
   }
 

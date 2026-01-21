@@ -16,4 +16,37 @@ export interface Summary {
   topics: TopicPoint[];
 }
 
+// Flashcard types for study feature
+export interface Flashcard {
+  id: string;
+  question: string;
+  answer: string;
+  tags?: string[];
+}
+
+export type FlashcardDifficulty = "beginner" | "intermediate" | "advanced";
+
+export interface FlashcardSet {
+  topic: string;
+  difficulty: FlashcardDifficulty;
+  language: Language;
+  flashcards: Flashcard[];
+  metadata?: {
+    videoUrl?: string;
+    totalChunks?: number;
+    successfulChunks?: number;
+    // For file uploads
+    fileName?: string;
+    fileSize?: number;
+  };
+}
+
+// Transcript chunk for processing long videos
+export interface TranscriptChunk {
+  index: number;
+  items: TranscriptItem[];
+  startTime: number; // seconds
+  endTime: number; // seconds
+  text: string; // concatenated text from items
+}
 

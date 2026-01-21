@@ -1,4 +1,10 @@
 import "./globals.css";
+import { FlashcardProvider } from "../lib/contexts/flashcard-context";
+
+export const metadata = {
+  title: "TubeStudy - Learn from YouTube Videos",
+  description: "Generate flashcards from YouTube videos for effective studying",
+};
 
 export default function RootLayout({
   children,
@@ -7,7 +13,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <FlashcardProvider>{children}</FlashcardProvider>
+      </body>
     </html>
   );
 }

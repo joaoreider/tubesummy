@@ -16,9 +16,17 @@ const summarySchema = z.object({
     .min(1),
 });
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Lazy-load OpenAI client to avoid build-time errors
+let _client: OpenAI | null = null;
+
+function getClient(): OpenAI {
+  if (!_client) {
+    _client = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+  }
+  return _client;
+}
 
 export interface WhisperSegment {
   id: number;
@@ -37,6 +45,7 @@ export class OpenAIProvider implements LLMProvider {
     audioFilePath: string,
     language: Language,
   ): Promise<WhisperResponse> {
+    const client = getClient();
     if (!client.apiKey) {
       throw new Error("OPENAI_API_KEY is not configured.");
     }
@@ -62,6 +71,7 @@ export class OpenAIProvider implements LLMProvider {
     transcript: string;
     language: Language;
   }): Promise<Summary> {
+    const client = getClient();
     if (!client.apiKey) {
       throw new Error("OPENAI_API_KEY is not configured.");
     }
